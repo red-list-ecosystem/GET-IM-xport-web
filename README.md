@@ -97,6 +97,7 @@ conda deactivate
 
 rm -r $GISDATA/tmploc
 EFG=WM.nwx
+EFG=MT2.2
 grep $EFG raster-maps.list > slc.maps
 
 grass -c $PSMDIR/MFT1.2.WM.nwx_v1.0.tif $GISDATA/tmploc --exec bash $SCRIPTDIR/inc/bash/create-highlight-buffer.sh slc.maps $PSMDIR $HGLDIR
@@ -117,7 +118,7 @@ cd $WORKDIR
 conda deactivate
 
 EFG=T7.5
-EFG=WM.nwx
+EFG=MT2.2
 
 grep $EFG raster-maps.list > slc.maps
 $SCRIPTDIR/inc/bash/geotiff-crop-and-translate-for-mapbox.sh slc.maps $PSMDIR $HGLDIR $MBXDIR
@@ -132,18 +133,14 @@ It is possible to upload using the MBTILES format, or the larger GeoTIFF files. 
 
 ```sh
 cd $WORKDIR
-EFG=WM.nwx
-
-grep $EFG raster-maps.list > slc.maps
 Rscript --vanilla $SCRIPTDIR/inc/R/upload-map-to-mapbox.R $MBXDIR slc.maps
 ```
 
 
+## Still to do...
 
 
-
-
-To use this in the website, we need to reproject to plate carré and simplify, something like this...
+To use the highlight buffer in the website, we need to reproject to plate carré and simplify, something like this...
 
 ```sh
 ogr2ogr -f GeoJSON -s_srs "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs" -t_srs EPSG:4326 $OUTDIR/prueba_ll.json $INPUTMAP
@@ -155,19 +152,4 @@ This has to be copied to the repository:
 ```sh
  OUTPUTMAP=$HOME/proyectos/UNSW/typology-map-data/data/auxiliary/${EFG}_buffer.topo.json
  mv $OUTDIR/prueba-topo.json $OUTPUTMAP
-```
-
-
-
-
-```sh
-cd $WORKDIR
-conda deactivate
-
-EFG=T7.5
-
-grep $EFG raster-maps.list > slc.maps
-$SCRIPTDIR/inc/bash/geotiff-crop-and-translate-for-mapbox.sh slc.maps
-
-
 ```
