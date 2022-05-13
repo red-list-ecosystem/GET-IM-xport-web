@@ -40,17 +40,20 @@ rm tmpfile
 
 
 echo "
-1 193:15:2:255
-2 247:157:150:255
+1 193 15 2 255
+2 247 157 150 255
+nv 0 0 0 0
 " > $WORKDIR/DumparkMapColors.txt
 
 
 export GTIFDIR=$WORKDIR/output-rasters/geotiff
+export PSMDIR=$WORKDIR/output-rasters/psmercator
 export MBXDIR=$WORKDIR/output-rasters/mapbox
 export HGLDIR=$WORKDIR/output-vectors/hl-json
 
 mkdir -p $GTIFDIR
 mkdir -p $MBXDIR
+mkdir -p $PSMDIR
 mkdir -p $HGLDIR
 
 
